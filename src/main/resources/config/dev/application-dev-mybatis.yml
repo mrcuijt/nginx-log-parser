@@ -1,0 +1,26 @@
+#数据库类型设置(小写)
+#dataType: mysql
+dataType: oracle
+
+#分页插件
+pagehelper:
+  helperDialect: ${dataType}
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+mybatis:
+  #指定目录类型别名扫描,多个包用;号分割
+  #指定mapper.xml的位置
+  #mapper-locations: classpath:mapper/**/*.xml,classpath:com/br/creditapprove/*/*/mapper/*.xml
+  mapper-locations: classpath:mapper/${dataType}/*.xml,classpath:mapper/${dataType}/**/*.xml
+  #配置mybatis的驼峰命名法
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#mybatis plus配置同mybatis
+mybatis-plus:
+  mapper-locations: ${mybatis.mapper-locations}
+  configuration:
+    log-impl: ${mybatis.configuration.log-impl}

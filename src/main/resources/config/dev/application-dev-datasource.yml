@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://127.0.0.1:3330/D:/tools/mybatis-generate-tools-exart/db/nginx;NON_KEYWORDS=YEAR
+    username: sa
+    password:

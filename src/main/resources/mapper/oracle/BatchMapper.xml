@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="javax.frame.tools.nginx.modules.log_parser.mapper.BatchMapper" >
+    <resultMap id="BaseResultMap" type="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="REMOTE_ADDR" property="remoteAddr" jdbcType="VARCHAR" />
+        <result column="REMOTE_USER" property="remoteUser" jdbcType="VARCHAR" />
+        <result column="TIME_LOCAL" property="timeLocal" jdbcType="VARCHAR" />
+        <result column="REQUEST_TIME" property="requestTime" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="BODY_BYTES_SENT" property="bodyBytesSent" jdbcType="VARCHAR" />
+        <result column="HTTP_REFERER" property="httpReferer" jdbcType="VARCHAR" />
+        <result column="HTTP_USER_AGENT" property="httpUserAgent" jdbcType="VARCHAR" />
+        <result column="HTTP_X_FORWARDED_FOR" property="httpXForwardedFor" jdbcType="VARCHAR" />
+        <result column="COUNTRY_NAME_ZH" property="countryNameZh" jdbcType="VARCHAR" />
+        <result column="COUNTRY_NAME_EN" property="countryNameEn" jdbcType="VARCHAR" />
+        <result column="COUNTRY_ISO_CODE" property="countryIsoCode" jdbcType="VARCHAR" />
+        <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+        <result column="POSTAL" property="postal" jdbcType="VARCHAR" />
+        <result column="STATE" property="state" jdbcType="VARCHAR" />
+        <result column="YEAR" property="year" jdbcType="VARCHAR" />
+        <result column="YEAR_MONTH" property="yearMonth" jdbcType="VARCHAR" />
+        <result column="YEAR_MONTH_DAY" property="yearMonthDay" jdbcType="VARCHAR" />
+        <result column="YEAR_MONTH_DAY_HOUR" property="yearMonthDayHour" jdbcType="VARCHAR" />
+        <result column="YEAR_MONTH_DAY_HOUR_MINUTE" property="yearMonthDayHourMinute" jdbcType="VARCHAR" />
+        <result column="INPUT_DATE" property="inputDate" jdbcType="VARCHAR" />
+        <result column="INPUT_TIME" property="inputTime" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog" extends="BaseResultMap" >
+        <result column="REQUEST" property="request" jdbcType="CLOB" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    ID, REMOTE_ADDR, REMOTE_USER, TIME_LOCAL, REQUEST_TIME, STATUS, BODY_BYTES_SENT, 
+    HTTP_REFERER, HTTP_USER_AGENT, HTTP_X_FORWARDED_FOR, COUNTRY_NAME_ZH, COUNTRY_NAME_EN, 
+    COUNTRY_ISO_CODE, CITY_NAME, POSTAL, STATE, YEAR, YEAR_MONTH, YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, 
+    YEAR_MONTH_DAY_HOUR_MINUTE, INPUT_DATE, INPUT_TIME
+  </sql>
+    <sql id="Blob_Column_List" >
+    REQUEST
+  </sql>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into SYS_NGINX_LOG (ID, REMOTE_ADDR, REMOTE_USER,
+        TIME_LOCAL, REQUEST_TIME, STATUS,
+        BODY_BYTES_SENT, HTTP_REFERER, HTTP_USER_AGENT,
+        HTTP_X_FORWARDED_FOR, COUNTRY_NAME_ZH, COUNTRY_NAME_EN,
+        COUNTRY_ISO_CODE, CITY_NAME, POSTAL,
+        STATE, YEAR, YEAR_MONTH,
+        YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, YEAR_MONTH_DAY_HOUR_MINUTE,
+        INPUT_DATE, INPUT_TIME, REQUEST
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.remoteAddr,jdbcType=VARCHAR}, #{item.remoteUser,jdbcType=VARCHAR},
+            #{item.timeLocal,jdbcType=VARCHAR}, #{item.requestTime,jdbcType=VARCHAR}, #{item.status,jdbcType=VARCHAR},
+            #{item.bodyBytesSent,jdbcType=VARCHAR}, #{item.httpReferer,jdbcType=VARCHAR}, #{item.httpUserAgent,jdbcType=VARCHAR},
+            #{item.httpXForwardedFor,jdbcType=VARCHAR}, #{item.countryNameZh,jdbcType=VARCHAR}, #{item.countryNameEn,jdbcType=VARCHAR},
+            #{item.countryIsoCode,jdbcType=VARCHAR}, #{item.cityName,jdbcType=VARCHAR}, #{item.postal,jdbcType=VARCHAR},
+            #{item.state,jdbcType=VARCHAR}, #{item.year,jdbcType=VARCHAR}, #{item.yearMonth,jdbcType=VARCHAR},
+            #{item.yearMonthDay,jdbcType=VARCHAR}, #{item.yearMonthDayHour,jdbcType=VARCHAR}, #{item.yearMonthDayHourMinute,jdbcType=VARCHAR},
+            #{item.inputDate,jdbcType=VARCHAR}, #{item.inputTime,jdbcType=VARCHAR}, #{item.request,jdbcType=CLOB}
+            )
+        </foreach>
+  </insert>
+</mapper>

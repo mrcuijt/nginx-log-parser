@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="javax.frame.tools.nginx.modules.log_parser.mapper.SysNginxLogMapper">
+  <resultMap id="BaseResultMap" type="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="REMOTE_ADDR" jdbcType="VARCHAR" property="remoteAddr" />
+    <result column="REMOTE_USER" jdbcType="VARCHAR" property="remoteUser" />
+    <result column="TIME_LOCAL" jdbcType="VARCHAR" property="timeLocal" />
+    <result column="REQUEST_TIME" jdbcType="VARCHAR" property="requestTime" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="BODY_BYTES_SENT" jdbcType="VARCHAR" property="bodyBytesSent" />
+    <result column="HTTP_REFERER" jdbcType="VARCHAR" property="httpReferer" />
+    <result column="HTTP_USER_AGENT" jdbcType="VARCHAR" property="httpUserAgent" />
+    <result column="HTTP_X_FORWARDED_FOR" jdbcType="VARCHAR" property="httpXForwardedFor" />
+    <result column="COUNTRY_NAME_ZH" jdbcType="VARCHAR" property="countryNameZh" />
+    <result column="COUNTRY_NAME_EN" jdbcType="VARCHAR" property="countryNameEn" />
+    <result column="COUNTRY_ISO_CODE" jdbcType="VARCHAR" property="countryIsoCode" />
+    <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+    <result column="POSTAL" jdbcType="VARCHAR" property="postal" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="YEAR" jdbcType="VARCHAR" property="year" />
+    <result column="YEAR_MONTH" jdbcType="VARCHAR" property="yearMonth" />
+    <result column="YEAR_MONTH_DAY" jdbcType="VARCHAR" property="yearMonthDay" />
+    <result column="YEAR_MONTH_DAY_HOUR" jdbcType="VARCHAR" property="yearMonthDayHour" />
+    <result column="YEAR_MONTH_DAY_HOUR_MINUTE" jdbcType="VARCHAR" property="yearMonthDayHourMinute" />
+    <result column="INPUT_DATE" jdbcType="VARCHAR" property="inputDate" />
+    <result column="INPUT_TIME" jdbcType="VARCHAR" property="inputTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    <result column="REQUEST" jdbcType="CLOB" property="request" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, REMOTE_ADDR, REMOTE_USER, TIME_LOCAL, REQUEST_TIME, STATUS, BODY_BYTES_SENT, 
+    HTTP_REFERER, HTTP_USER_AGENT, HTTP_X_FORWARDED_FOR, COUNTRY_NAME_ZH, COUNTRY_NAME_EN, 
+    COUNTRY_ISO_CODE, CITY_NAME, POSTAL, STATE, YEAR, YEAR_MONTH, YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, 
+    YEAR_MONTH_DAY_HOUR_MINUTE, INPUT_DATE, INPUT_TIME
+  </sql>
+  <sql id="Blob_Column_List">
+    REQUEST
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SYS_NGINX_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_NGINX_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    insert into SYS_NGINX_LOG (ID, REMOTE_ADDR, REMOTE_USER, 
+      TIME_LOCAL, REQUEST_TIME, STATUS, 
+      BODY_BYTES_SENT, HTTP_REFERER, HTTP_USER_AGENT, 
+      HTTP_X_FORWARDED_FOR, COUNTRY_NAME_ZH, COUNTRY_NAME_EN, 
+      COUNTRY_ISO_CODE, CITY_NAME, POSTAL, 
+      STATE, YEAR, YEAR_MONTH, 
+      YEAR_MONTH_DAY, YEAR_MONTH_DAY_HOUR, YEAR_MONTH_DAY_HOUR_MINUTE, 
+      INPUT_DATE, INPUT_TIME, REQUEST
+      )
+    values (#{id,jdbcType=VARCHAR}, #{remoteAddr,jdbcType=VARCHAR}, #{remoteUser,jdbcType=VARCHAR}, 
+      #{timeLocal,jdbcType=VARCHAR}, #{requestTime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{bodyBytesSent,jdbcType=VARCHAR}, #{httpReferer,jdbcType=VARCHAR}, #{httpUserAgent,jdbcType=VARCHAR}, 
+      #{httpXForwardedFor,jdbcType=VARCHAR}, #{countryNameZh,jdbcType=VARCHAR}, #{countryNameEn,jdbcType=VARCHAR}, 
+      #{countryIsoCode,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{postal,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{yearMonth,jdbcType=VARCHAR}, 
+      #{yearMonthDay,jdbcType=VARCHAR}, #{yearMonthDayHour,jdbcType=VARCHAR}, #{yearMonthDayHourMinute,jdbcType=VARCHAR}, 
+      #{inputDate,jdbcType=VARCHAR}, #{inputTime,jdbcType=VARCHAR}, #{request,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    insert into SYS_NGINX_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="remoteAddr != null">
+        REMOTE_ADDR,
+      </if>
+      <if test="remoteUser != null">
+        REMOTE_USER,
+      </if>
+      <if test="timeLocal != null">
+        TIME_LOCAL,
+      </if>
+      <if test="requestTime != null">
+        REQUEST_TIME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="bodyBytesSent != null">
+        BODY_BYTES_SENT,
+      </if>
+      <if test="httpReferer != null">
+        HTTP_REFERER,
+      </if>
+      <if test="httpUserAgent != null">
+        HTTP_USER_AGENT,
+      </if>
+      <if test="httpXForwardedFor != null">
+        HTTP_X_FORWARDED_FOR,
+      </if>
+      <if test="countryNameZh != null">
+        COUNTRY_NAME_ZH,
+      </if>
+      <if test="countryNameEn != null">
+        COUNTRY_NAME_EN,
+      </if>
+      <if test="countryIsoCode != null">
+        COUNTRY_ISO_CODE,
+      </if>
+      <if test="cityName != null">
+        CITY_NAME,
+      </if>
+      <if test="postal != null">
+        POSTAL,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="year != null">
+        YEAR,
+      </if>
+      <if test="yearMonth != null">
+        YEAR_MONTH,
+      </if>
+      <if test="yearMonthDay != null">
+        YEAR_MONTH_DAY,
+      </if>
+      <if test="yearMonthDayHour != null">
+        YEAR_MONTH_DAY_HOUR,
+      </if>
+      <if test="yearMonthDayHourMinute != null">
+        YEAR_MONTH_DAY_HOUR_MINUTE,
+      </if>
+      <if test="inputDate != null">
+        INPUT_DATE,
+      </if>
+      <if test="inputTime != null">
+        INPUT_TIME,
+      </if>
+      <if test="request != null">
+        REQUEST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteUser != null">
+        #{remoteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLocal != null">
+        #{timeLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        #{requestTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyBytesSent != null">
+        #{bodyBytesSent,jdbcType=VARCHAR},
+      </if>
+      <if test="httpReferer != null">
+        #{httpReferer,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUserAgent != null">
+        #{httpUserAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="httpXForwardedFor != null">
+        #{httpXForwardedFor,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNameZh != null">
+        #{countryNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNameEn != null">
+        #{countryNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="countryIsoCode != null">
+        #{countryIsoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="postal != null">
+        #{postal,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonth != null">
+        #{yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonthDay != null">
+        #{yearMonthDay,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonthDayHour != null">
+        #{yearMonthDayHour,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonthDayHourMinute != null">
+        #{yearMonthDayHourMinute,jdbcType=VARCHAR},
+      </if>
+      <if test="inputDate != null">
+        #{inputDate,jdbcType=VARCHAR},
+      </if>
+      <if test="inputTime != null">
+        #{inputTime,jdbcType=VARCHAR},
+      </if>
+      <if test="request != null">
+        #{request,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    update SYS_NGINX_LOG
+    <set>
+      <if test="remoteAddr != null">
+        REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteUser != null">
+        REMOTE_USER = #{remoteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLocal != null">
+        TIME_LOCAL = #{timeLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        REQUEST_TIME = #{requestTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyBytesSent != null">
+        BODY_BYTES_SENT = #{bodyBytesSent,jdbcType=VARCHAR},
+      </if>
+      <if test="httpReferer != null">
+        HTTP_REFERER = #{httpReferer,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUserAgent != null">
+        HTTP_USER_AGENT = #{httpUserAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="httpXForwardedFor != null">
+        HTTP_X_FORWARDED_FOR = #{httpXForwardedFor,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNameZh != null">
+        COUNTRY_NAME_ZH = #{countryNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNameEn != null">
+        COUNTRY_NAME_EN = #{countryNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="countryIsoCode != null">
+        COUNTRY_ISO_CODE = #{countryIsoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="postal != null">
+        POSTAL = #{postal,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        YEAR = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonth != null">
+        YEAR_MONTH = #{yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonthDay != null">
+        YEAR_MONTH_DAY = #{yearMonthDay,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonthDayHour != null">
+        YEAR_MONTH_DAY_HOUR = #{yearMonthDayHour,jdbcType=VARCHAR},
+      </if>
+      <if test="yearMonthDayHourMinute != null">
+        YEAR_MONTH_DAY_HOUR_MINUTE = #{yearMonthDayHourMinute,jdbcType=VARCHAR},
+      </if>
+      <if test="inputDate != null">
+        INPUT_DATE = #{inputDate,jdbcType=VARCHAR},
+      </if>
+      <if test="inputTime != null">
+        INPUT_TIME = #{inputTime,jdbcType=VARCHAR},
+      </if>
+      <if test="request != null">
+        REQUEST = #{request,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    update SYS_NGINX_LOG
+    set REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      REMOTE_USER = #{remoteUser,jdbcType=VARCHAR},
+      TIME_LOCAL = #{timeLocal,jdbcType=VARCHAR},
+      REQUEST_TIME = #{requestTime,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      BODY_BYTES_SENT = #{bodyBytesSent,jdbcType=VARCHAR},
+      HTTP_REFERER = #{httpReferer,jdbcType=VARCHAR},
+      HTTP_USER_AGENT = #{httpUserAgent,jdbcType=VARCHAR},
+      HTTP_X_FORWARDED_FOR = #{httpXForwardedFor,jdbcType=VARCHAR},
+      COUNTRY_NAME_ZH = #{countryNameZh,jdbcType=VARCHAR},
+      COUNTRY_NAME_EN = #{countryNameEn,jdbcType=VARCHAR},
+      COUNTRY_ISO_CODE = #{countryIsoCode,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      POSTAL = #{postal,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      YEAR = #{year,jdbcType=VARCHAR},
+      YEAR_MONTH = #{yearMonth,jdbcType=VARCHAR},
+      YEAR_MONTH_DAY = #{yearMonthDay,jdbcType=VARCHAR},
+      YEAR_MONTH_DAY_HOUR = #{yearMonthDayHour,jdbcType=VARCHAR},
+      YEAR_MONTH_DAY_HOUR_MINUTE = #{yearMonthDayHourMinute,jdbcType=VARCHAR},
+      INPUT_DATE = #{inputDate,jdbcType=VARCHAR},
+      INPUT_TIME = #{inputTime,jdbcType=VARCHAR},
+      REQUEST = #{request,jdbcType=CLOB}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="javax.frame.tools.nginx.modules.log_parser.model.SysNginxLog">
+    update SYS_NGINX_LOG
+    set REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      REMOTE_USER = #{remoteUser,jdbcType=VARCHAR},
+      TIME_LOCAL = #{timeLocal,jdbcType=VARCHAR},
+      REQUEST_TIME = #{requestTime,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      BODY_BYTES_SENT = #{bodyBytesSent,jdbcType=VARCHAR},
+      HTTP_REFERER = #{httpReferer,jdbcType=VARCHAR},
+      HTTP_USER_AGENT = #{httpUserAgent,jdbcType=VARCHAR},
+      HTTP_X_FORWARDED_FOR = #{httpXForwardedFor,jdbcType=VARCHAR},
+      COUNTRY_NAME_ZH = #{countryNameZh,jdbcType=VARCHAR},
+      COUNTRY_NAME_EN = #{countryNameEn,jdbcType=VARCHAR},
+      COUNTRY_ISO_CODE = #{countryIsoCode,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      POSTAL = #{postal,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      YEAR = #{year,jdbcType=VARCHAR},
+      YEAR_MONTH = #{yearMonth,jdbcType=VARCHAR},
+      YEAR_MONTH_DAY = #{yearMonthDay,jdbcType=VARCHAR},
+      YEAR_MONTH_DAY_HOUR = #{yearMonthDayHour,jdbcType=VARCHAR},
+      YEAR_MONTH_DAY_HOUR_MINUTE = #{yearMonthDayHourMinute,jdbcType=VARCHAR},
+      INPUT_DATE = #{inputDate,jdbcType=VARCHAR},
+      INPUT_TIME = #{inputTime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,7 @@
+server:
+  port: 8600
+spring:
+  profiles:
+    include:
+      - dev-datasource
+      - dev-mybatis
