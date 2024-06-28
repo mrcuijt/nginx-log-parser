@@ -179,7 +179,7 @@ public class DateUtil {
      * @return
      */
     public static LocalDateTime getLocalDateTime(String dateStr, String patternStr) {
-        return getLocalDateTime(dateStr, patternStr, null);
+        return getLocalDateTime(dateStr, patternStr, (ZoneId)null);
     }
 
     /**
@@ -191,8 +191,34 @@ public class DateUtil {
      * @return
      */
     public static LocalDateTime getLocalDateTime(String dateStr, String patternStr, ZoneId zoneId) {
+        return getLocalDateTime(dateStr, patternStr, zoneId, null);
+    }
+
+    /**
+     * 转换指定时区的日期文本为本地时间
+     *
+     * @param dateStr
+     * @param patternStr
+     * @param locale
+     * @return
+     */
+    public static LocalDateTime getLocalDateTime(String dateStr, String patternStr, Locale locale) {
+        return getLocalDateTime(dateStr, patternStr, null, locale);
+    }
+
+    /**
+     * 转换指定时区的日期文本为本地时间
+     *
+     * @param dateStr
+     * @param patternStr
+     * @param zoneId
+     * @param locale
+     * @return
+     */
+    public static LocalDateTime getLocalDateTime(String dateStr, String patternStr, ZoneId zoneId, Locale locale) {
         TemporalAccessor temporalAccessor = DateTimeFormatter
                 .ofPattern(patternStr)
+                .withLocale((locale != null) ? locale : Locale.getDefault())
                 .withZone((zoneId != null) ? zoneId : ZoneId.systemDefault())
                 .parse(dateStr);
         Instant instant = ZonedDateTime.from(temporalAccessor).toInstant();
