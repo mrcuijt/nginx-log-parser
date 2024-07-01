@@ -6,8 +6,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalQueries;
-import java.util.Locale;
 
 public class LocalDateTimeUtil {
 
@@ -136,5 +136,27 @@ public class LocalDateTimeUtil {
      */
     public static String formatLocalDateTime(LocalDateTime localDateTime) {
         return fromat(localDateTime, pattern_002);
+    }
+
+    /**
+     * 获取指定月份第1天的开始 00:00
+     *
+     * @param localDateTime
+     * @return
+     */
+    public static LocalDateTime getFirstDayOfMonth(LocalDateTime localDateTime) {
+        LocalDateTime firstDayOfMonth = localDateTime.with(TemporalAdjusters.firstDayOfMonth());
+        return LocalDateTime.of(firstDayOfMonth.toLocalDate(), LocalTime.MIDNIGHT);
+    }
+
+    /**
+     * 获取指定月份最后1天的结束 23:59:59.999999999
+     *
+     * @param localDateTime
+     * @return
+     */
+    public static LocalDateTime getLastDayOfMonth(LocalDateTime localDateTime) {
+        LocalDateTime lastDayOfMonth = localDateTime.with(TemporalAdjusters.lastDayOfMonth());
+        return LocalDateTime.of(lastDayOfMonth.toLocalDate(), LocalTime.MAX);
     }
 }
