@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
+import java.util.Locale;
 
 public class LocalDateTimeUtil {
 
@@ -19,12 +20,17 @@ public class LocalDateTimeUtil {
     public static final String pattern_004 = "yyyyMMddHHmmss";
 
     /**
+     * 系统默认区域，例如："Asia/Shanghai"
+     */
+    public static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
+
+    /**
      * 获取本地日期
      *
      * @return
      */
     public static LocalDateTime getLocalDate() {
-        LocalDate localDate = LocalDate.now(ZoneId.systemDefault());
+        LocalDate localDate = LocalDate.now(DEFAULT_ZONE_ID);
         LocalDateTime localDateTime = LocalDateTime.of(localDate, LocalTime.of(0, 0));
         return localDateTime;
     }
@@ -35,7 +41,7 @@ public class LocalDateTimeUtil {
      * @return
      */
     public static LocalDateTime getLocalDateTime() {
-        return LocalDateTime.now(ZoneId.systemDefault());
+        return LocalDateTime.now(DEFAULT_ZONE_ID);
     }
 
     /**
@@ -44,8 +50,8 @@ public class LocalDateTimeUtil {
      * @return
      */
     public static long getTimestamp() {
-        return LocalDateTime.now(ZoneId.systemDefault())
-                .atZone(ZoneId.systemDefault())
+        return LocalDateTime.now(DEFAULT_ZONE_ID)
+                .atZone(DEFAULT_ZONE_ID)
                 .toInstant()
                 .toEpochMilli();
     }
@@ -56,7 +62,7 @@ public class LocalDateTimeUtil {
      * @return
      */
     public static long getTimestamp(LocalDateTime localDateTime) {
-        return localDateTime.atZone(ZoneId.systemDefault())
+        return localDateTime.atZone(DEFAULT_ZONE_ID)
                 .toInstant()
                 .toEpochMilli();
     }

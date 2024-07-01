@@ -37,13 +37,23 @@ public class ZonedDateTimeUtil {
     private static final String NGINX_LOG_DEFAULT_DATE_TIME_FORMAT = "dd/MMM/yyyy:HH:mm:ss Z";
 
     /**
+     * 系统默认区域，例如："Asia/Shanghai"
+     */
+    public static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
+
+    /**
+     * 系统默认本地语言环境，例如："zh_CN"
+     */
+    public static final Locale DEFAULT_LOCALE = Locale.getDefault();
+
+    /**
      * 解析日期文本为时区日期时间
      *
      * @param dateStr
      * @return
      */
     public static ZonedDateTime parseZonedDateTime(String dateStr) {
-        return parseZonedDateTime(dateStr, pattern_timezone_001, Locale.getDefault());
+        return parseZonedDateTime(dateStr, pattern_timezone_001, DEFAULT_LOCALE);
     }
 
     /**
@@ -54,7 +64,7 @@ public class ZonedDateTimeUtil {
      * @return
      */
     public static ZonedDateTime parseZonedDateTime(String dateStr, String pattern) {
-        return parseZonedDateTime(dateStr, pattern, Locale.getDefault());
+        return parseZonedDateTime(dateStr, pattern, DEFAULT_LOCALE);
     }
 
     /**
@@ -67,7 +77,7 @@ public class ZonedDateTimeUtil {
      */
     public static ZonedDateTime parseZonedDateTime(String dateStr, String pattern, Locale locale) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern)
-                .withLocale((locale != null) ? locale : Locale.getDefault());
+                .withLocale((locale != null) ? locale : DEFAULT_LOCALE);
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateStr, dtf);
         return zonedDateTime;
     }
@@ -82,7 +92,7 @@ public class ZonedDateTimeUtil {
      */
     public static ZonedDateTime parseZonedDateTime(String dateStr, String pattern, Locale locale, ZoneId zoneId) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern)
-                .withLocale((locale != null) ? locale : Locale.getDefault());
+                .withLocale((locale != null) ? locale : DEFAULT_LOCALE);
         // 解析带有时区信息的日期文本，不做时区转换，直接将原有时区替换为指定时区
         ZonedDateTime temp = ZonedDateTime.parse(dateStr, dtf.withZone(zoneId));
         // 以指定时区信息实例化日期时间
@@ -148,7 +158,7 @@ public class ZonedDateTimeUtil {
      */
     public static ZonedDateTime create(String dateStr, String pattern, Locale locale, ZoneId zoneId) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern)
-                .withLocale((locale != null) ? locale : Locale.getDefault());
+                .withLocale((locale != null) ? locale : DEFAULT_LOCALE);
         TemporalAccessor temporalAccessor = dtf.parse(dateStr);
         LocalDate localDate = temporalAccessor.query(TemporalQueries.localDate());
         LocalTime localTime = temporalAccessor.query(TemporalQueries.localTime());
@@ -169,7 +179,7 @@ public class ZonedDateTimeUtil {
      */
     public static String format(ZonedDateTime zonedDateTime, String pattern, Locale locale) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern)
-                .withLocale((locale != null) ? locale : Locale.getDefault());
+                .withLocale((locale != null) ? locale : DEFAULT_LOCALE);
         String format = dtf.format(zonedDateTime);
         return format;
     }
@@ -254,7 +264,7 @@ public class ZonedDateTimeUtil {
      * @return
      */
     public static LocalDateTime toLocalDateTime(ZonedDateTime zonedDateTime) {
-        return toLocalDateTime(zonedDateTime, ZoneId.systemDefault());
+        return toLocalDateTime(zonedDateTime, DEFAULT_ZONE_ID);
     }
 
     /**
@@ -279,7 +289,7 @@ public class ZonedDateTimeUtil {
      * @return
      */
     public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId target) {
-        return toZonedDateTime(localDateTime, ZoneId.systemDefault(), target);
+        return toZonedDateTime(localDateTime, DEFAULT_ZONE_ID, target);
     }
 
     /**
@@ -305,13 +315,35 @@ public class ZonedDateTimeUtil {
     }
 
     /**
+     * 获取区域日期时间，依赖系统默认区域
+     *
+     * @return
+     */
+    public static ZonedDateTime getZonedDateTime() {
+        return ZonedDateTime.now(DEFAULT_ZONE_ID);
+    }
+
+    /**
+     * 获取时间戳
+     *
+     * @return
+     */
+    public static long getTimestamp() {
+        return ZonedDateTime.now(DEFAULT_ZONE_ID)
+                .toInstant()
+                .toEpochMilli();
+    }
+
+    /**
      * 获取时间戳
      *
      * @param zonedDateTime
      * @return
      */
     public static long getTimestamp(ZonedDateTime zonedDateTime) {
-        return zonedDateTime.toInstant().toEpochMilli();
+        return zonedDateTime
+                .toInstant()
+                .toEpochMilli();
     }
 
     /**
