@@ -272,6 +272,49 @@ public class ZonedDateTimeUtil {
     }
 
     /**
+     * 转换为区域日期时间，以操作系统设置区域为基础，以目标时区为准转换
+     *
+     * @param localDateTime
+     * @param target
+     * @return
+     */
+    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId target) {
+        return toZonedDateTime(localDateTime, ZoneId.systemDefault(), target);
+    }
+
+    /**
+     * 转换为区域日期时间，以指定区域为基础，以目标时区为准转换
+     *
+     * @param localDateTime
+     * @param target
+     * @return
+     */
+    public static ZonedDateTime toZonedDateTime(LocalDateTime localDateTime, ZoneId current, ZoneId target) {
+        // 转换到目标时区的本地时间
+        LocalDateTime targetLocalDateTime = ZonedDateTime.of(
+                localDateTime.toLocalDate(),
+                localDateTime.toLocalTime(), current)
+                .toInstant()
+                .atZone(target)
+                .toLocalDateTime();
+        // 以目标时区的本地时间和区域ID为准，创建区域日期时间
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(
+                targetLocalDateTime.toLocalDate(),
+                targetLocalDateTime.toLocalTime(), target);
+        return zonedDateTime;
+    }
+
+    /**
+     * 获取时间戳
+     *
+     * @param zonedDateTime
+     * @return
+     */
+    public static long getTimestamp(ZonedDateTime zonedDateTime) {
+        return zonedDateTime.toInstant().toEpochMilli();
+    }
+
+    /**
      * 验证时区信息是否一致
      *
      * @param unexpected
