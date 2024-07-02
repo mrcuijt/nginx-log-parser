@@ -1,9 +1,6 @@
 package javax.frame.tools.nginx.modules.log_parser.utils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjusters;
@@ -42,6 +39,18 @@ public class LocalDateTimeUtil {
      */
     public static LocalDateTime getLocalDateTime() {
         return LocalDateTime.now(DEFAULT_ZONE_ID);
+    }
+
+    /**
+     * 获取本地日期时间
+     *
+     * @param timestamp13
+     * @return
+     */
+    public static LocalDateTime getLocalDateTime(String timestamp13) {
+        return Instant.ofEpochMilli(Long.valueOf(timestamp13))
+                .atZone(DEFAULT_ZONE_ID)
+                .toLocalDateTime();
     }
 
     /**
