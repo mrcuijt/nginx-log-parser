@@ -140,6 +140,7 @@ public class ZonedDateTimeUtil {
      * @param dateStr
      * @return
      */
+    @Deprecated
     public static ZonedDateTime parseRfc1123GmtTimeZone(String dateStr) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(RFC_1123_DATE_TIME_GMT_TIME_ZOME)
                 .withLocale(Locale.US);
@@ -202,6 +203,23 @@ public class ZonedDateTimeUtil {
     }
 
     /**
+     * 格式化带有时区的日期时间（RFC 1123 / RFC 822）
+     *
+     * 格式化后文本日期样例：
+     * 1709319721000 "2024-03-02 03:02:01 CST" - result: "Sat, 02 Mar 2024 03:02:01 +0800"
+     * 1709348521000 "2024-03-02 03:02:01 UTC" - result: "Sat, 02 Mar 2024 03:02:01 GMT"
+     * 1729573931000 "2024-10-22 13:12:11 CST" - result: "Tue, 22 Oct 2024 13:12:11 +0800"
+     * 1729602731000 "2024-10-22 13:12:11 UTC" - result: "Tue, 22 Oct 2024 13:12:11 GMT"
+     *
+     * @param zonedDateTime
+     * @return
+     */
+    public static String formatRfc1123Server(ZonedDateTime zonedDateTime) {
+        String format = DateTimeFormatterUtil.RFC_1123_DATE_TIME.format(zonedDateTime);
+        return format;
+    }
+
+    /**
      * 格式化带有时区的日期时间（RFC 1123 / RFC 822）（非标准）
      *
      * EEE, dd MMM yyyy HH:mm:ss Z （非标准）
@@ -217,6 +235,7 @@ public class ZonedDateTimeUtil {
      * @param zonedDateTime
      * @return
      */
+    @Deprecated
     public static String formatRfc1123DayZeroFill(ZonedDateTime zonedDateTime) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(RFC_1123_DATE_TIME_DAY_ZERO_FILL)
                 .withLocale(Locale.US);
@@ -250,6 +269,7 @@ public class ZonedDateTimeUtil {
      * @param zonedDateTime
      * @return
      */
+    @Deprecated
     public static String formatRfc1123GmtTimeZone(ZonedDateTime zonedDateTime) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(RFC_1123_DATE_TIME_GMT_TIME_ZOME)
                 .withLocale(Locale.US);
